@@ -1,5 +1,5 @@
 import { Item, ItemName } from "@/types/Items";
-import { fetchItems, fetchLatestVersion } from "@/utils/serverApi";
+import { BASE_URL, fetchItems, fetchLatestVersion } from "@/utils/serverApi";
 import Image from "next/image";
 
 const Items = async () => {
@@ -14,7 +14,7 @@ const Items = async () => {
           <div key={item[0]} className="grid">
             <div className="w-20 border border-white-500">
               <Image
-                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item[1].image.full}`}
+                src={`${BASE_URL}/cdn/${version}/img/item/${item[1].image.full}`}
                 alt="이미지"
                 width="100"
                 height="100"
