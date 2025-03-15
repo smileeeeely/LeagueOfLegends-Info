@@ -4,6 +4,7 @@ import {
   fetchChampionDetail,
   fetchLatestVersion,
 } from "@/utils/serverApi";
+import Head from "next/head";
 import Image from "next/image";
 
 export type ParmasId = string;
@@ -15,8 +16,10 @@ const ChampionDetailPage = async ({ params }: { params: { id: string } }) => {
   const version = await fetchLatestVersion();
   return (
     <div>
-      <h1>{championData.name}</h1>
-      <p>{championData.title}</p>
+      <Head>
+        <title>{championData.name}</title>
+        <meta name="description" content={championData.lore} />
+      </Head>
       <Image
         src={`${BASE_URL}/cdn/${version}/img/champion/${championData.image.full}`}
         alt="이미지"

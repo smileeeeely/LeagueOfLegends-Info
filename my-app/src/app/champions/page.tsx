@@ -1,4 +1,4 @@
-import { Champion, ChampionName } from "@/types/Champion";
+import { Champion, ChampionName } from "@/types/champion";
 import {
   BASE_URL,
   fetchChampions,
