@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
+import Provider from "./Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,7 +22,7 @@ export default function RootLayout({
           <Link href="/items">아이템 목록</Link>
           <Link href="/rotation">챔피언 로테이션</Link>
         </nav>
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
