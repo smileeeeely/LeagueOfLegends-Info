@@ -1,4 +1,7 @@
-import { ParmasId } from "@/app/champions/[id]/page";
+import { ParamsId } from "@/app/champions/[id]/page";
+import { Champion } from "@/types/champion";
+import { ChampionDetail } from "@/types/championDetail";
+import { Item, ItemKey } from "@/types/Items";
 
 const LANGUAGE_KOR = "ko_KR";
 export const BASE_URL = "https://ddragon.leagueoflegends.com";
@@ -11,31 +14,33 @@ export const fetchLatestVersion = async () => {
   return data[0];
 };
 
-export const fetchItems = async () => {
+export const fetchItems = async (): Promise<[ItemKey, Item][]> => {
   const version = await fetchLatestVersion();
   const res = await fetch(
     `${BASE_URL}/cdn/${version}/data/${LANGUAGE_KOR}/item.json`,
     { cache: "force-cache" }
   );
   const { data } = await res.json();
-  return data;
+  const dataWithKey = Object.entries(data);
+
+  return dataWithKey as [ItemKey, Item][];
 };
 
-export const fetchChampions = async () => {
+export const fetchChampions = async (): Promise<Champion[]> => {
   const version = await fetchLatestVersion();
   const res = await fetch(
     `${BASE_URL}/cdn/${version}/data/${LANGUAGE_KOR}/champion.json`,
     { next: { revalidate: 86400 } }
   );
   const { data } = await res.json();
-  return data;
+  return Object.values(data);
 };
 
-export const fetchChampionDetail = async ({ name }: { name: ParmasId }) => {
+export const fetchChampionDetail = async ({ name }: { name: ParamsId }) => {
   const version = await fetchLatestVersion();
   const res = await fetch(
     `${BASE_URL}/cdn/${version}/data/${LANGUAGE_KOR}/champion/${name}.json`
   );
   const { data } = await res.json();
-  return data[name];
+  return data[name] as ChampionDetail;
 };

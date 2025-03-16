@@ -7,13 +7,15 @@ import {
 import Head from "next/head";
 import Image from "next/image";
 
-export type ParmasId = string;
+export type ParamsId = string;
 const ChampionDetailPage = async ({ params }: { params: { id: string } }) => {
-  const championName: ParmasId = params.id;
-  const championData: ChampionDetail = await fetchChampionDetail({
+  const championName: ParamsId = params.id.toString();
+  const championData = await fetchChampionDetail({
     name: championName,
   });
+
   const version = await fetchLatestVersion();
+
   return (
     <div>
       <Head>

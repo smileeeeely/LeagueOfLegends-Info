@@ -13,5 +13,3 @@ export interface Champion {
   partype: string;
   stats: Stats;
 }
-
-export type ChampionName = string;

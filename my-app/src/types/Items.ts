@@ -13,4 +13,4 @@ export interface Item {
   stats: Stats;
 }
 
-export type ItemName = string;
+export type ItemKey = string;
