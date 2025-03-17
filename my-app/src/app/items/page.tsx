@@ -7,23 +7,31 @@ const Items = async () => {
   const version = await fetchLatestVersion();
 
   return (
-    <div className="flex flex-col">
-      {items.map(([key, item]) => {
-        return (
-          <div key={key} className="grid">
-            <div className="w-20 border border-white-500">
+    <div className="container mx-auto mt-10">
+      <div className="h-10" />
+      <h1 className="text-2xl font-bold mb-4">아이템 목록</h1>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {items.map(([key, item]) => {
+          return (
+            <div key={key} className="border rounded p-4 hover:shadow-lg">
               <Image
                 src={`${BASE_URL}/cdn/${version}/img/item/${item.image.full}`}
                 alt="이미지"
                 width="100"
                 height="100"
                 priority={true}
+                className="mx-auto"
               />
-              <div>{item.name}</div>
+              <h2 className="mt-2 text-xl font-semibold">
+                {item.name.replace(/<[^>]+>|@\w+@/g, "")}
+              </h2>
+              <p className="text-gray-500">
+                {item.plaintext.replace(/<[^>]+>|@\w+@/g, "")}
+              </p>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

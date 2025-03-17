@@ -13,26 +13,33 @@ const Champions = async () => {
   const version = await fetchLatestVersion();
 
   return (
-    <div>
-      {champions.map((champion) => {
-        return (
-          <div key={champion.key} className="grid">
-            <Link href={`/champions/${champion.id}`}>
-              <div className="w-30 border border-white-500">
+    <div className="container mx-auto mt-10">
+      <div className="h-10" />
+      <h1 className="text-2xl font-bold mb-4">챔피언 목록</h1>
+      <div className="grid grid-cols-4 gap-4">
+        {champions.map((champion) => {
+          return (
+            <Link
+              key={champion.key}
+              href={`/champions/${champion.id}`}
+              className="border rounded p-4 hover:shadow-lg"
+            >
+              <div>
                 <Image
                   src={`${BASE_URL}/cdn/${version}/img/champion/${champion.image.full}`}
                   alt="이미지"
                   width="100"
                   height="100"
                   priority={true}
+                  className="mx-auto"
                 />
-                <div>{champion.name}</div>
-                <div>{champion.title}</div>
+                <h2 className="mt-2 text-xl font-semibold">{champion.name}</h2>
+                <p className="text-gray-500">{champion.title}</p>
               </div>
             </Link>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
