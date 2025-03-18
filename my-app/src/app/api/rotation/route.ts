@@ -2,10 +2,10 @@ import { Champion } from "@/types/champion";
 import { fetchChampions } from "@/utils/serverApi";
 import { NextResponse } from "next/server";
 
-export const GET = async (): Promise<NextResponse> => {
+export const GET = async () => {
   try {
     const res = await fetch(
-      "https://br1.api.riotgames.com/lol/platform/v3/champion-rotations",
+      "https://kr.api.riotgames.com/lol/platform/v3/champion-rotations",
       {
         headers: {
           "X-Riot-Token": process.env.NEXT_PUBLIC_RIOT_API_KEY!,
@@ -25,10 +25,11 @@ export const GET = async (): Promise<NextResponse> => {
       rotationData.freeChampionIds.includes(parseInt(champion.key))
     );
     return NextResponse.json(filteredRotationData);
+    // return NextResponse.json(res);
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: "로테이션 페이지를 읽을 수 없습니다" },
+      { message: JSON.stringify(error) },
       { status: 500 }
     );
   }
