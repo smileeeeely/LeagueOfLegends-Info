@@ -1,24 +1,21 @@
 "use client";
 
-import { Champion } from "@/types/champion";
-import { getChampionRotation } from "@/utils/riotApi";
-import { BASE_URL } from "@/utils/serverApi";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-// import { useRotation } from "@/utils/riotApi";
+import { useRotation } from "@/utils/riotApi";
+import { BASE_URL } from "@/_constants/serverApiConstants";
 
 const Rotation = () => {
-  const [rotationChampions, setRotationChampions] = useState<Champion[]>([]);
+  const { data: rotationChampions, isPending, isError } = useRotation();
+  if (isPending) {
+    return <div>데이터 불러오는 중...</div>;
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data: Champion[] = await getChampionRotation();
-      setRotationChampions(data);
-    };
-    fetchData();
-  }, []);
+  if (isError) {
+    return <div>페이지에 문제가 생겼습니다</div>;
+  }
+
   return (
     <div className="container mx-auto mt-10">
       <div className="h-10" />
