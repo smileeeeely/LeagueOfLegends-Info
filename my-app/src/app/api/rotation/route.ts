@@ -1,4 +1,4 @@
-import { Champion } from "../../../types/champion";
+import { Champion } from "@/types/champion";
 import { fetchChampions } from "@/utils/serverApi";
 import { NextResponse } from "next/server";
 
