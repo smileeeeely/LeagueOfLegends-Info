@@ -1,4 +1,4 @@
-import { Champion } from "@/types/champion";
+import { Champion } from "../../../types/champion";
 import { fetchChampions } from "@/utils/serverApi";
 import { NextResponse } from "next/server";
 
@@ -26,7 +26,7 @@ export const GET = async (): Promise<NextResponse> => {
     );
     return NextResponse.json(filteredRotationData);
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return NextResponse.json(
       { message: "로테이션 페이지를 읽을 수 없습니다" },
       { status: 500 }
