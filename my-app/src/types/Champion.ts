@@ -1,4 +1,4 @@
-import { Image, Info, Stats } from "@/utils/types";
+import { Image, Info, Stats } from "@/types/types";
 
 export interface Champion {
   version: string;

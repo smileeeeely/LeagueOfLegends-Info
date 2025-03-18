@@ -1,10 +1,11 @@
+import { FETCH_ITEMS_IMG_URL } from "@/_constants/serverApiConstants";
 import { Item, ItemKey } from "@/types/Items";
-import { BASE_URL, fetchItems, fetchLatestVersion } from "@/utils/serverApi";
+import { fetchItems } from "@/utils/serverApi";
 import Image from "next/image";
 
 const Items = async () => {
   const items: [ItemKey, Item][] = await fetchItems();
-  const version = await fetchLatestVersion();
+  const imgUrl = await FETCH_ITEMS_IMG_URL();
 
   return (
     <div className="container mx-auto mt-10">
@@ -15,7 +16,7 @@ const Items = async () => {
           return (
             <div key={key} className="border rounded p-4 hover:shadow-lg">
               <Image
-                src={`${BASE_URL}/cdn/${version}/img/item/${item.image.full}`}
+                src={`${imgUrl}${item.image.full}`}
                 alt="이미지"
                 width="100"
                 height="100"

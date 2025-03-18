@@ -1,4 +1,4 @@
-import { Image, Stats } from "@/utils/types";
+import { Image, Stats } from "@/types/types";
 
 export interface Item {
   name: string;

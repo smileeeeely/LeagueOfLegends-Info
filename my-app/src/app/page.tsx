@@ -24,7 +24,8 @@ const Home = () => {
                 alt="championListImage"
                 width={400}
                 height={400}
-                className="mx-auto"
+                className="mx-auto w-auto h-auto"
+                priority
               />
               챔피언 목록 보기
             </Link>
@@ -39,8 +40,8 @@ const Home = () => {
                 alt="championListImage"
                 width={400}
                 height={400}
-                className="mx-auto"
-                unoptimized
+                className="mx-auto w-auto h-auto"
+                priority
               />
               금주 로테이션 확인
             </Link>
@@ -55,7 +56,8 @@ const Home = () => {
                 alt="championListImage"
                 width={400}
                 height={400}
-                className="mx-auto"
+                className="mx-auto w-auto h-auto"
+                priority
               />
               아이템 목록 보기
             </Link>

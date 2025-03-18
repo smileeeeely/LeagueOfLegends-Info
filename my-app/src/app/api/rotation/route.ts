@@ -1,7 +1,8 @@
 import { Champion } from "@/types/champion";
 import { fetchChampions } from "@/utils/serverApi";
+import { NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (): Promise<NextResponse> => {
   const res = await fetch(
     "https://br1.api.riotgames.com/lol/platform/v3/champion-rotations",
     {
@@ -15,5 +16,5 @@ export const GET = async () => {
   const filteredRotationData: Champion[] = championsData.filter((champion) =>
     rotationData.freeChampionIds.includes(parseInt(champion.key))
   );
-  return Response.json(filteredRotationData);
+  return NextResponse.json(filteredRotationData);
 };

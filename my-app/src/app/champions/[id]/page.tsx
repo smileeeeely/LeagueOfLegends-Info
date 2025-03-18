@@ -1,33 +1,32 @@
-import { ChampionDetail } from "@/types/championDetail";
-import {
-  BASE_URL,
-  fetchChampionDetail,
-  fetchLatestVersion,
-} from "@/utils/serverApi";
-import Head from "next/head";
+import { FETCH_CHAMPION_IMG_URL } from "@/_constants/serverApiConstants";
+import { fetchChampionDetail } from "@/utils/serverApi";
 import Image from "next/image";
 
 export type ParamsId = string;
+
+export const generateMetadata = ({ params }: { params: { id: string } }) => {
+  return {
+    title: `${params.id} - My Riot App`,
+    description: `Detail 페이지 : ${params.id}`,
+  };
+};
+
 const ChampionDetailPage = async ({ params }: { params: { id: string } }) => {
   const championName: ParamsId = params.id.toString();
   const championData = await fetchChampionDetail({
     name: championName,
   });
 
-  const version = await fetchLatestVersion();
+  const imgUrl = await FETCH_CHAMPION_IMG_URL();
 
   return (
     <div className="container mx-auto mt-10">
       <div className="h-10" />
       <div className="max-w-3xl mx-auto">
-        <Head>
-          <title>{championData.name}</title>
-          <meta name="description" content={championData.lore} />
-        </Head>
         <h1 className="text-4xl font-bold mb-4">{championData.name}</h1>
         <h2 className="text-2xl text-gray-600 mb-4">{championData.title}</h2>
         <Image
-          src={`${BASE_URL}/cdn/${version}/img/champion/${championData.image.full}`}
+          src={`${imgUrl}${championData.image.full}`}
           alt="이미지"
           width="200"
           height="200"

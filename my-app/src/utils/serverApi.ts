@@ -1,46 +1,36 @@
+"use server";
+import {
+  FETCH_CHAMPION_DETAIL_URL,
+  FETCH_CHAMPIONS_URL,
+  FETCH_ITEMS_URL,
+} from "@/_constants/serverApiConstants";
 import { ParamsId } from "@/app/champions/[id]/page";
 import { Champion } from "@/types/champion";
 import { ChampionDetail } from "@/types/championDetail";
 import { Item, ItemKey } from "@/types/Items";
 
-const LANGUAGE_KOR = "ko_KR";
-export const BASE_URL = "https://ddragon.leagueoflegends.com";
-
-type VersionData = string;
-
-export const fetchLatestVersion = async () => {
-  const res = await fetch(`${BASE_URL}/api/versions.json`);
-  const data: VersionData[] = await res.json();
-  return data[0];
-};
-
+// 아이템 목록을 가져오는 함수
 export const fetchItems = async (): Promise<[ItemKey, Item][]> => {
-  const version = await fetchLatestVersion();
-  const res = await fetch(
-    `${BASE_URL}/cdn/${version}/data/${LANGUAGE_KOR}/item.json`,
-    { cache: "force-cache" }
-  );
+  const url = await FETCH_ITEMS_URL();
+  const res = await fetch(url, { cache: "force-cache" });
   const { data } = await res.json();
   const dataWithKey = Object.entries(data);
 
   return dataWithKey as [ItemKey, Item][];
 };
 
+// 챔피언 목록을 가져오는 함수
 export const fetchChampions = async (): Promise<Champion[]> => {
-  const version = await fetchLatestVersion();
-  const res = await fetch(
-    `${BASE_URL}/cdn/${version}/data/${LANGUAGE_KOR}/champion.json`,
-    { next: { revalidate: 86400 } }
-  );
+  const url = await FETCH_CHAMPIONS_URL();
+  const res = await fetch(url, { next: { revalidate: 86400 } });
   const { data } = await res.json();
   return Object.values(data);
 };
 
+// 디테일 페이지의 챔피언 정보를 가져오는 함수
 export const fetchChampionDetail = async ({ name }: { name: ParamsId }) => {
-  const version = await fetchLatestVersion();
-  const res = await fetch(
-    `${BASE_URL}/cdn/${version}/data/${LANGUAGE_KOR}/champion/${name}.json`
-  );
+  const url = await FETCH_CHAMPION_DETAIL_URL(name);
+  const res = await fetch(url);
   const { data } = await res.json();
   return data[name] as ChampionDetail;
 };
