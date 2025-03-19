@@ -37,6 +37,7 @@ LoL 챔피언 & 아이템 정보 웹사이트
    http://localhost:3000
 
 프로젝트 
+```
 lol-champion-site/
 ├── app/            # Next.js App Router 구조
 │   ├── api/        # API 엔드포인트
@@ -55,6 +56,7 @@ lol-champion-site/
 │   ├── globals.css  # 전역 스타일링 파일
 │   ├── page.tsx   # 홈 페이지
 └── README.md      # 프로젝트 설명 파일
+```
 
 기여 방법
 1. 이슈를 확인하고 작업할 내용을 정합니다.
